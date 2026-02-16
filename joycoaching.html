@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joyanta Ghosh Academy | Excellence in Education</title>
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* --- 1. CSS VARIABLES & THEME --- */
+:root {
+    --primary: #002147; /* Royal Blue */
+    --secondary: #ffb703; /* Honey Gold */
+    --accent: #219ebc;   /* Light Blue */
+    --light: #f8f9fa;
+    --dark: #1d1d1d;
+    --text-grey: #555;
+    --shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; text-decoration: none; list-style: none; scroll-behavior: smooth; }
+body { background: #eef1f6; overflow-x: hidden; }
+
+/* --- 2. SIDEBAR NAVIGATION --- */
+.sidebar {
+    position: fixed; top: 0; left: 0; height: 100%; width: 260px;
+    background: var(--primary); z-index: 1000; transition: 0.4s;
+    overflow-y: auto; box-shadow: 4px 0 10px rgba(0,0,0,0.2);
+}
+
+/* Scrollbar Hide */
+.sidebar::-webkit-scrollbar { width: 5px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--secondary); }
+
+.logo-section {
+    padding: 30px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+/* আপনার লোগো স্টাইল */
+.logo-section img { 
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%; 
+    border: 3px solid var(--secondary); 
+    margin-bottom: 10px; 
+    object-fit: cover;
+    background: white; /* লোগোর ব্যাকগ্রাউন্ড সাদা করার জন্য */
+}
+.logo-section h2 { color: white; font-size: 18px; font-weight: 600; }
+.logo-section p { color: var(--secondary); font-size: 12px; letter-spacing: 1px; }
+
+.nav-links { padding-top: 20px; }
+.nav-links li a {
+    display: flex; align-items: center; padding: 15px 25px; color: rgba(255,255,255,0.8);
+    transition: 0.3s; font-size: 15px; border-left: 4px solid transparent;
+}
+.nav-links li a:hover, .nav-links li a.active-nav {
+    background: rgba(255,255,255,0.05); color: white; border-left: 4px solid var(--secondary);
+}
+.nav-links li a i { margin-right: 15px; width: 20px; text-align: center; font-size: 18px; color: var(--secondary); }
+
+/* --- 3. MAIN CONTENT AREA --- */
+.main-content {
+    margin-left: 260px; padding: 0; transition: 0.4s; min-height: 100vh;
+}
+
+/* Header */
+header {
+    background: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 999;
+}
+.menu-toggle { font-size: 24px; cursor: pointer; color: var(--primary); display: none; }
+.header-info { font-size: 14px; font-weight: 600; color: var(--primary); }
+.header-info i { color: var(--secondary); margin-right: 5px; }
+
+/* Pages */
+.page { display: none; padding: 30px; animation: fadeUp 0.6s ease; }
+.page.active { display: block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0,33,71,0.8), rgba(0,33,71,0.8)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover; background-position: center; color: white; padding: 100px 30px;
+    border-radius: 15px; text-align: center; margin-bottom: 30px; position: relative;
+}
+.hero h1 { font-size: 3rem; font-weight: 700; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+.hero p { font-size: 1.2rem; margin-bottom: 25px; opacity: 0.9; }
+.btn-primary {
+    background: var(--secondary); color: var(--primary); padding: 12px 30px; font-weight: 600; border-radius: 50px;
+    border: none; cursor: pointer; transition: 0.3s; display: inline-block;
+}
+.btn-primary:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(255,183,3,0.4); }
+
+/* Cards & Grid */
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 25px; }
+
+.card {
+    background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); transition: 0.3s;
+    border-bottom: 4px solid transparent;
+}
+.card:hover { transform: translateY(-5px); border-bottom: 4px solid var(--secondary); }
+.card img { width: 100%; height: 200px; object-fit: cover; }
+.card-content { padding: 25px; }
+.card-title { font-size: 1.2rem; font-weight: 600; color: var(--primary); margin-bottom: 10px; }
+.card-text { color: var(--text-grey); font-size: 0.95rem; line-height: 1.6; }
+
+/* Director Section */
+.director-box {
+    display: flex; align-items: center; background: white; padding: 40px; border-radius: 15px; box-shadow: var(--shadow);
+}
+.director-img { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 5px solid var(--secondary); margin-right: 40px; }
+.quote { font-style: italic; color: #666; border-left: 4px solid var(--secondary); padding-left: 15px; margin: 20px 0; }
+
+/* Forms */
+input, select, textarea {
+    width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; background: #fdfdfd;
+}
+input:focus { border-color: var(--primary); outline: none; }
+
+/* Tables */
+.table-container { overflow-x: auto; border-radius: 10px; box-shadow: var(--shadow); }
+table { width: 100%; border-collapse: collapse; background: white; }
+th { background: var(--primary); color: white; padding: 15px; text-align: left; }
+td { padding: 15px; border-bottom: 1px solid #eee; color: #333; }
+
+/* Footer */
+footer { background: var(--primary); color: white; padding: 40px 20px; text-align: center; margin-top: 50px; }
+
+/* WhatsApp Float */
+.wa-float {
+    position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white; width: 60px; height: 60px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1001; animation: pulse 2s infinite;
+}
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+    .sidebar { left: -260px; }
+    .sidebar.active { left: 0; }
+    .main-content { margin-left: 0; }
+    .menu-toggle { display: block; }
+    .hero h1 { font-size: 2rem; }
+    .director-box { flex-direction: column; text-align: center; }
+    .director-img { margin: 0 0 20px 0; }
+    .grid-2 { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+    <div class="logo-section">
+        <!-- আপনার দেওয়া লোগোটি এখানে বসানো হয়েছে -->
+        <img src="https://i.ibb.co/WX8XGLL/IMG-20260215-002846.png" alt="Logo">
+        <h2>Joyanta Ghosh<br>Academy</h2>
+        <p>SINCE 2010</p>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#" onclick="showPage('home')" class="active-nav"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#" onclick="showPage('director')"><i class="fas fa-user-tie"></i> Director</a></li>
+        <li><a href="#" onclick="showPage('about')"><i class="fas fa-info-circle"></i> About Us</a></li>
+        <li><a href="#" onclick="showPage('courses')"><i class="fas fa-book-open"></i> Courses</a></li>
+        <li><a href="#" onclick="showPage('faculty')"><i class="fas fa-chalkboard-teacher"></i> Faculty</a></li>
+        <li><a href="#" onclick="showPage('admission')"><i class="fas fa-user-plus"></i> Admission</a></li>
+        <li><a href="#" onclick="showPage('fees')"><i class="fas fa-tags"></i> Fee Structure</a></li>
+        <li><a href="#" onclick="showPage('routine')"><i class="fas fa-calendar-alt"></i> Routine</a></li>
+        <li><a href="#" onclick="showPage('gallery')"><i class="fas fa-images"></i> Gallery</a></li>
+        <li><a href="#" onclick="showPage('result')"><i class="fas fa-trophy"></i> Results</a></li>
+        <li><a href="#" onclick="showPage('material')"><i class="fas fa-file-pdf"></i> Study Material</a></li>
+        <li><a href="#" onclick="showPage('notice')"><i class="fas fa-bullhorn"></i> Notice Board</a></li>
+        <li><a href="#" onclick="showPage('testimonials')"><i class="fas fa-star"></i> Testimonials</a></li>
+        <li><a href="#" onclick="showPage('contact')"><i class="fas fa-map-marked-alt"></i> Contact</a></li>
+        <li><a href="#" onclick="showPage('career')"><i class="fas fa-briefcase"></i> Career</a></li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+    <header>
+        <i class="fas fa-bars menu-toggle" onclick="toggleSidebar()"></i>
+        <div class="header-info">
+            <i class="fas fa-phone-alt"></i> +91 7001939659
+        </div>
+    </header>
+
+    <!-- 1. HOME -->
+    <div id="home" class="page active">
+        <div class="hero">
+            <h1>Welcome to Joyanta Ghosh Academy</h1>
+            <p>Empowering Students to Achieve their Dreams</p>
+            <button class="btn-primary" onclick="showPage('admission')">Join Us Today</button>
+        </div>
+
+        <h2 style="text-align:center; margin-bottom:30px; color:var(--primary);">Our Key Features</h2>
+        <div class="grid-3">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1577896334614-501192e4256a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Class">
+                <div class="card-content">
+                    <div class="card-title"><i class="fas fa-laptop"></i> Smart Classrooms</div>
+                    <p class="card-text">We use modern technology to make learning easier and interactive.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Teacher">
+                <div class="card-content">
+                    <div class="card-title"><i class="fas fa-user-graduate"></i> Expert Faculty</div>
+                    <p class="card-text">Learn from highly experienced teachers dedicated to your success.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Test">
+                <div class="card-content">
+                    <div class="card-title"><i class="fas fa-clipboard-check"></i> Regular Tests</div>
+                    <p class="card-text">Weekly mock tests to track performance and improve weak areas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. DIRECTOR -->
+    <div id="director" class="page">
+        <h2 style="color:var(--primary); margin-bottom:20px;">Meet The Director</h2>
+        <div class="director-box">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Joyanta Ghosh" class="director-img">
+            <div>
+                <h1 style="color:var(--primary);">Joyanta Ghosh</h1>
+                <h4 style="color:var(--secondary);">Founder & Principal Mentor</h4>
+                <div class="quote">
+                    "Education is the most powerful weapon which you can use to change the world. My mission is to provide quality education to every student."
+                </div>
+                <p>With over 15 years of teaching experience, Joyanta Sir has guided thousands of students to success in Madhyamik and HS exams.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. ABOUT US -->
+    <div id="about" class="page">
+        <h2 style="color:var(--primary); margin-bottom:20px;">About Our Academy</h2>
+        <div class="grid-2">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60" alt="Building">
+                <div class="card-content">
+                    <div class="card-title">Our History</div>
+                    <p class="card-text">Established in 2010, Joyanta Ghosh Academy has been a beacon of knowledge in West Bengal.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title">Mission & Vision</div>
+                    <p class="card-text"><b>Mission:</b> To simplify complex concepts.<br><b>Vision:</b> To be the #1 Coaching Centre.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. COURSES -->
+    <div id="courses" class="page">
+        <h2>Our Courses</h2>
+        <div class="grid-3" style="margin-top:20px;">
+            <div class="card" style="border-top: 5px solid red;">
+                <div class="card-content">
+                    <h3>Foundation (Class 5-8)</h3>
+                    <p>Building strong base in Math, Science & English.</p>
+                </div>
+            </div>
+            <div class="card" style="border-top: 5px solid green;">
+                <div class="card-content">
+                    <h3>Madhyamik (Class 9-10)</h3>
+                    <p>Special focus on Board Exam preparation.</p>
+                </div>
+            </div>
+            <div class="card" style="border-top: 5px solid blue;">
+                <div class="card-content">
+                    <h3>HS (Class 11-12)</h3>
+                    <p>Science & Arts stream with competitive guidance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. FACULTY -->
+    <div id="faculty" class="page">
+        <h2>Our Faculty Members</h2>
+        <div class="grid-3" style="margin-top:20px;">
+            <div class="card" style="text-align:center;">
+                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60" style="height:250px;">
+                <div class="card-content">
+                    <h4>Mrs. Anjali Roy</h4>
+                    <p>English | 8 Years Exp.</p>
+                </div>
+            </div>
+            <div class="card" style="text-align:center;">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60" style="height:250px;">
+                <div class="card-content">
+                    <h4>Mr. S. Das</h4>
+                    <p>Science | 12 Years Exp.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. ADMISSION (WHATSAPP INTEGRATED) -->
+    <div id="admission" class="page">
+        <h2>Admission Form 2026</h2>
+        <div style="background:white; padding:40px; border-radius:15px; max-width:600px; margin:auto; box-shadow:var(--shadow);">
+            <p style="text-align:center; color:var(--text-grey);">Submit this form to send details to Joyanta Sir's WhatsApp.</p>
+            <br>
+            <form onsubmit="sendAdmission(event)">
+                <label>Student Name</label>
+                <input type="text" id="adm_name" placeholder="Enter full name" required>
+                
+                <label>Parent's Name</label>
+                <input type="text" id="adm_parent" placeholder="Father/Mother name" required>
+                
+                <label>Class to Admission</label>
+                <select id="adm_class">
+                    <option>Class 5</option>
+                    <option>Class 6</option>
+                    <option>Class 7</option>
+                    <option>Class 8</option>
+                    <option>Class 9</option>
+                    <option>Class 10</option>
+                    <option>Class 11</option>
+                    <option>Class 12</option>
+                </select>
+                
+                <label>Mobile Number</label>
+                <input type="number" id="adm_phone" placeholder="10 digit number" required>
+
+                <button type="submit" class="btn-primary" style="width:100%;">Submit Application <i class="fab fa-whatsapp"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 7. FEES -->
+    <div id="fees" class="page">
+        <h2>Fee Structure</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Admission Fee (One Time)</th>
+                        <th>Monthly Fee</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Class 5 - 6</td><td>₹ 500</td><td>₹ 400</td></tr>
+                    <tr><td>Class 7 - 8</td><td>₹ 600</td><td>₹ 500</td></tr>
+                    <tr><td>Class 9 - 10</td><td>₹ 800</td><td>₹ 700</td></tr>
+                    <tr><td>Class 11 - 12</td><td>₹ 1000</td><td>₹ 900</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 8. ROUTINE -->
+    <div id="routine" class="page">
+        <h2>Class Routine</h2>
+        <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" style="width:100%; border-radius:10px; margin-bottom:20px;">
+        <div class="table-container">
+            <table>
+                <tr><th>Day</th><th>Morning Batch</th><th>Evening Batch</th></tr>
+                <tr><td>Monday</td><td>Class 10 (Math)</td><td>Class 8 (Science)</td></tr>
+                <tr><td>Wednesday</td><td>Class 12 (Physics)</td><td>Class 9 (Math)</td></tr>
+                <tr><td>Friday</td><td>Class 11 (Math)</td><td>Class 7 (Eng)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- 9. GALLERY -->
+    <div id="gallery" class="page">
+        <h2>Photo Gallery</h2>
+        <div class="grid-3">
+            <div class="card"><img src="https://images.unsplash.com/photo-1427504746696-ea5abd7dfe8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1565932887479-b18108f07bed?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1510531704581-5b2870972060?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"></div>
+        </div>
+    </div>
+
+    <!-- 10. RESULT -->
+    <div id="result" class="page">
+        <h2>Check Student Result</h2>
+        <div style="background:white; padding:30px; border-radius:10px; box-shadow:var(--shadow); margin-bottom:30px;">
+            <input type="text" id="rollInput" placeholder="Enter Roll Number (Try: 101)" style="max-width:300px;">
+            <button class="btn-primary" onclick="checkResult()">Search</button>
+            <div id="resultOutput" style="margin-top:20px; font-weight:bold;"></div>
+        </div>
+        <h3>Last Year Toppers</h3>
+        <div class="grid-3">
+            <div class="card" style="text-align:center; padding:20px;">
+                <i class="fas fa-medal" style="font-size:40px; color:gold;"></i>
+                <h4>Rahul Roy</h4>
+                <p>98% (Madhyamik)</p>
+            </div>
+            <div class="card" style="text-align:center; padding:20px;">
+                <i class="fas fa-medal" style="font-size:40px; color:silver;"></i>
+                <h4>Sneha Das</h4>
+                <p>96% (HS Science)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 11. MATERIAL -->
+    <div id="material" class="page">
+        <h2>Study Materials (PDF)</h2>
+        <div class="grid-2">
+            <div class="card" style="display:flex; align-items:center; padding:20px;">
+                <i class="fas fa-file-pdf" style="font-size:40px; color:red; margin-right:20px;"></i>
+                <div>
+                    <h4>Class 10 Math Formula</h4>
+                    <button class="btn-primary" style="padding:5px 15px; font-size:12px;">Download</button>
+                </div>
+            </div>
+            <div class="card" style="display:flex; align-items:center; padding:20px;">
+                <i class="fas fa-file-pdf" style="font-size:40px; color:red; margin-right:20px;"></i>
+                <div>
+                    <h4>Class 12 Physics Notes</h4>
+                    <button class="btn-primary" style="padding:5px 15px; font-size:12px;">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 12. NOTICE -->
+    <div id="notice" class="page">
+        <h2>Notice Board</h2>
+        <div class="card" style="margin-bottom:15px; border-left:5px solid red; padding:20px;">
+            <h4 style="color:red;">Summer Vacation</h4>
+            <p>The institute will remain closed from 20th May to 30th May due to summer vacation.</p>
+            <small>Posted: 15 May 2026</small>
+        </div>
+        <div class="card" style="margin-bottom:15px; border-left:5px solid green; padding:20px;">
+            <h4 style="color:green;">New Batch Started</h4>
+            <p>New batch for Class 11 (Science) will start from Monday.</p>
+            <small>Posted: 10 May 2026</small>
+        </div>
+    </div>
+
+    <!-- 13. TESTIMONIALS -->
+    <div id="testimonials" class="page">
+        <h2>What Parents Say</h2>
+        <div class="grid-2">
+            <div class="card" style="padding:20px;">
+                <p><i>"Joyanta Sir takes care of every student individually. My son's math has improved."</i></p>
+                <br>
+                <h4>- Rajesh Kumar</h4>
+            </div>
+            <div class="card" style="padding:20px;">
+                <p><i>"Best coaching centre in this area. Very disciplined environment."</i></p>
+                <br>
+                <h4>- Mita Sen</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- 14. CONTACT -->
+    <div id="contact" class="page">
+        <h2>Contact Us</h2>
+        <div class="grid-3">
+            <div class="card" style="text-align:center; padding:20px;">
+                <i class="fas fa-phone-alt" style="font-size:30px; color:var(--secondary);"></i>
+                <h4>Phone</h4>
+                <p>+91 7001939659</p>
+            </div>
+            <div class="card" style="text-align:center; padding:20px;">
+                <i class="fas fa-envelope" style="font-size:30px; color:var(--secondary);"></i>
+                <h4>Email</h4>
+                <p>joyanta@gmail.com</p>
+            </div>
+            <div class="card" style="text-align:center; padding:20px;">
+                <i class="fas fa-map-marker-alt" style="font-size:30px; color:var(--secondary);"></i>
+                <h4>Location</h4>
+                <p>Joyanta Ghosh Academy, West Bengal</p>
+            </div>
+        </div>
+        <br>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.1!2d88.4!3d22.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDMwJzAwLjAiTiA4OMKwMjQnMDAuMCJF!5e0!3m2!1sen!2sin!4v1600000000000" width="100%" height="300" style="border:0; border-radius:15px;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <!-- 15. CAREER -->
+    <div id="career" class="page">
+        <h2>Career / Join as Teacher</h2>
+        <p>We are hiring experienced teachers for Math and Physics.</p>
+        <div style="background:white; padding:30px; border-radius:10px; margin-top:20px;">
+            <input type="text" placeholder="Your Name">
+            <input type="text" placeholder="Subject Specialization">
+            <input type="text" placeholder="Phone">
+            <button class="btn-primary">Apply Now</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Joyanta Ghosh Academy. All Rights Reserved.</p>
+    </footer>
+</main>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/917001939659" class="wa-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+    // Page Switching Logic
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        
+        // Update Nav Active State
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-nav'));
+        event.currentTarget.classList.add('active-nav');
+        
+        // Close sidebar on mobile
+        if(window.innerWidth <= 768) {
+            document.getElementById('sidebar').classList.remove('active');
+        }
+    }
+
+    // Toggle Mobile Sidebar
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('active');
+    }
+
+    // WhatsApp Form Function
+    function sendAdmission(e) {
+        e.preventDefault();
+        let name = document.getElementById("adm_name").value;
+        let parent = document.getElementById("adm_parent").value;
+        let sClass = document.getElementById("adm_class").value;
+        let phone = document.getElementById("adm_phone").value;
+
+        let msg = `*New Admission Request*%0A%0AStudent: ${name}%0AParent: ${parent}%0AClass: ${sClass}%0AContact: ${phone}`;
+        window.open(`https://wa.me/917001939659?text=${msg}`, '_blank');
+    }
+
+    // Result Checker
+    function checkResult() {
+        let roll = document.getElementById("rollInput").value;
+        let output = document.getElementById("resultOutput");
+        
+        if(roll === "101") {
+            output.innerHTML = "<span style='color:green; font-size:1.2rem;'>✅ Passed! Marks: 88%</span>";
+        } else {
+            output.innerHTML = "<span style='color:red;'>❌ Roll Number Not Found. (Demo: Try 101)</span>";
+        }
+    }
+</script>
+
+</body>
+</html>
